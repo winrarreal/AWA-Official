@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AWA — Official Wepsite</title>
+  <link rel="icon" type="image/x-icon" href="./img/ChatGPT-Imagell-21-окт.-2025-г.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #05060a;
+      --card: #0b1220;
+      --muted: #9aa8c6;
+      --accent1: #7c3aed;
+      --accent2: #06b6d4;
+      --accent: linear-gradient(135deg,var(--accent1),var(--accent2));
+      --glass: rgba(255,255,255,0.035);
+      --border: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui,Arial,sans-serif;
+      background:radial-gradient(600px 300px at 12% 18%,rgba(124,58,237,0.14),transparent),
+                 radial-gradient(540px 260px at 88% 82%,rgba(6,182,212,0.08),transparent),
+                 var(--bg);
+      color:#e8eef9;padding:32px;overflow-x:hidden;
+    }
+
+    header{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{height:56px;width:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:white;font-weight:800;font-size:18px;box-shadow:0 8px 40px rgba(124,58,237,0.28),0 20px 60px rgba(6,182,212,0.12);}
+    .title{font-size:18px;font-weight:800;letter-spacing:0.4px}
+    .subtitle{font-size:12px;color:var(--muted)}
+
+    nav{display:flex;align-items:center;gap:12px; justify-content: center; width: 100%;}
+    .navbtn{font-size: 16px; text-decoration: none; border:1px solid transparent;padding:10px 18px;border-radius:12px;background:var(--glass);color:var(--muted);font-weight:700;cursor:pointer;transition:all .28s}
+    .navbtn:hover{border-color:rgba(124,58,237,0.18);color:#fff;transform:translateY(-2px)}
+    .navbtn.active{background:var(--accent);color:white;box-shadow:0 10px 40px rgba(124,58,237,0.18)}
+    
+
+    .controls{display:flex;justify-content: center; width: 100%; gap:12px;align-items:center; margin-top: 25px; margin-bottom: 25px;}
+    .search{background:var(--glass);border:1px solid var(--border);padding:12px 16px;border-radius:14px;color:#cfe7ff;min-width:300px;outline:none;transition:box-shadow .25s}
+    .search:focus{box-shadow:0 6px 24px rgba(124,58,237,0.18);border-color:var(--accent1)}
+
+    /* category bar */
+    .category-bar{display:flex; justify-content: center; align-items: center; gap:8px;flex-wrap:wrap;margin:16px 0 24px}
+    .cat-btn{padding:8px 12px;border-radius:999px;border:1px solid transparent;background:rgba(255,255,255,0.02);color:var(--muted);font-weight:700;cursor:pointer;transition:all .18s}
+    .cat-btn:hover{transform:translateY(-2px);border-color:rgba(124,58,237,0.12);color:#fff}
+    .cat-btn.active{background:var(--accent);color:white;box-shadow:0 8px 30px rgba(124,58,237,0.12)}
+
+    main{margin-top:10px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:25px;}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border:1px solid var(--border);border-radius:18px;padding:20px;backdrop-filter:blur(12px);box-shadow:0 18px 50px rgba(2,6,23,0.6),inset 0 0 20px rgba(255,255,255,0.02);transform:translateY(26px) scale(0.995);opacity:0;animation:cardReveal .9s forwards;transition:transform .35s,box-shadow .35s}
+    .card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 30px 80px rgba(124,58,237,0.22),inset 0 0 30px rgba(255,255,255,0.03);border-color:rgba(124,58,237,0.28)}
+
+    @keyframes cardReveal{to{opacity:1;transform:translateY(0) scale(1)}}
+
+    .head{display:flex;gap:14px;align-items:flex-start}
+    .ai-icon{width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));color:white;box-shadow:0 8px 30px rgba(6,182,212,0.12);font-size:18px;}
+    .ai-meta{flex:1}
+    .ai-title{font-weight:800;font-size:16px}
+    .ai-desc{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.45}
+
+    .ai-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+    .usecount{font-weight:800;color:#cfeffd}
+    .linkbtn{border:1px solid transparent;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,0.02);color:#cfeffd;font-weight:800;cursor:pointer;transition:all .28s}
+    .linkbtn:hover{background:var(--accent);box-shadow:0 10px 30px rgba(6,182,212,0.12);color:white}
+
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:800;font-size:12px;color:#eaf6ff;background:linear-gradient(90deg,rgba(124,58,237,0.12),rgba(6,182,212,0.08));cursor:pointer}
+
+    .empty{color:var(--muted);text-align:center;padding:40px 12px}
+
+    @media (max-width:960px){.grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}.search{min-width:220px}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}.search{min-width:100%}}
+  </style>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"><img src="./img/ChatGPT-Imagell-21-окт.-2025-г.png" alt="" width="70"></div>
+      <div>
+        <div class="title">AWA</div>
+        <div class="subtitle">Dörediji <b>winrar.real</b> Tehnologiýa | Ai Täzelikler</div>
+      </div>
+    </div>
+    <nav>
+
+      <div style="margin-top: 30px; margin-bottom: 5px; display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 10px; flex-wrap:wrap;">
+
+        <a href="" class="navbtn active" id="homeBtn">AI</a>
+        <a href="./newfile/index.html" class="navbtn">Animations</a>
+        <a href="./newfile/index.html" class="navbtn">Html Css Js Animation</a>
+        <a href="./newfile/index.html" class="navbtn">Icons</a>
+        <a href="./newfile/index.html" class="navbtn">Thumbnails Packets</a>
+        <a href="./newfile/index.html" class="navbtn">Upscayl Your Picture</a>
+        <a href="./newfile/index.html" class="navbtn">Create Macups</a>
+        <a href="./newfile/index.html" class="navbtn">Fonts</a>
+        <a href="./newfile/index.html" class="navbtn">Programms</a>
+        <a href="./newfile/index.html" class="navbtn">Mackups</a>
+        <a href="./newfile/index.html" class="navbtn">Websites</a>
+        <a href="./newfile/index.html" class="navbtn">Prezintation</a>
+        <a href="./newfile/index.html" class="navbtn">Sound Effects</a>
+        <a href="./newfile/index.html">
+
+          <!-- 000000000000000000000000000000000000000000000000000000000000000000 -->
+          <!-- 000000000000000000000000000000000000000000000000000000000000000000 -->
+          <!-- 000000000000000000000000000000000000000000000000000000000000000000 -->
+
+          <div class="btn-wrapper">
+            <button class="btn">
+              <svg class="btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                ></path>
+              </svg>
+          
+              <div class="txt-wrapper">
+                <div class="txt-1">
+                  <span class="btn-letter">S</span>
+                  <span class="btn-letter">p</span>
+                  <span class="btn-letter">o</span>
+                  <span class="btn-letter">n</span>
+                  <span class="btn-letter">s</span>
+                  <span class="btn-letter">o</span>
+                  <span class="btn-letter">r</span>
+                  <span class="btn-letter">s</span>
+                </div>
+                <div class="txt-2">
+                  <span class="btn-letter">S</span>
+                  <span class="btn-letter">p</span>
+                  <span class="btn-letter">o</span>
+                  <span class="btn-letter">n</span>
+                  <span class="btn-letter">s</span>
+                  <span class="btn-letter">o</span>
+                  <span class="btn-letter">r</span>
+                  <span class="btn-letter">e</span>
+                  <span class="btn-letter">d</span>
+                </div>
+              </div>
+            </button>
+          </div>
+   
+          <!-- 000000000000000000000000000000000000000000000000000000000000000000 -->
+          <!-- 000000000000000000000000000000000000000000000000000000000000000000 -->
+          <!-- 000000000000000000000000000000000000000000000000000000000000000000 -->
+
+        </a>
+      </div>
+
+    </nav>
+
+    <div class="controls">
+      <input id="search" class="search" placeholder="Gözle:" aria-label="Ara" />
+    </div>
+
+  </header>
+
+  <main>
+    <section id="homeSection">
+      <div id="categoryBar" class="category-bar" role="toolbar" aria-label="Kategoriler"></div>
+      <div id="grid" class="grid" aria-live="polite"></div>
+      <div id="empty" class="empty" style="display:none">Maglumat ýok</div>
+    </section>
+
+    <section id="aboutSection" style="display:none" class="about">
+      <div style="max-width:800px;text-align:center;color:var(--muted)">
+      <p>About</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const TOTAL = 500;
+
+    const known = [
+      {name:'ChatGPT',link:'https://chat.openai.com'},
+      {name:'DALL·E',link:'https://openai.com/dall-e-2'},
+      {name:'GPT-4o (OpenAI)',link:'https://openai.com'},
+      {name:'Claude (Anthropic)',link:'https://www.anthropic.com'},
+      {name:'Bard (Google)',link:'https://bard.google.com'},
+      {name:'Gemini (Google)',link:'https://ai.google'},
+      {name:'Cohere',link:'https://cohere.ai'},
+      {name:'Hugging Face',link:'https://huggingface.co'},
+      {name:'Stable Diffusion (Stability AI)',link:'https://stability.ai'},
+      {name:'Midjourney',link:'https://www.midjourney.com'},
+      {name:'Copy.ai',link:'https://www.copy.ai'},
+      {name:'Jasper',link:'https://www.jasper.ai'},
+      {name:'Perplexity',link:'https://www.perplexity.ai'},
+      {name:'Replit Ghostwriter',link:'https://replit.com'},
+      {name:'Microsoft Copilot',link:'https://www.microsoft.com/en-us/ai'},
+      {name:'Amazon Bedrock',link:'https://aws.amazon.com/bedrock'},
+      {name:'Runway',link:'https://runwayml.com'},
+      {name:'Lensa',link:'https://www.lensa.ai'},
+      {name:'Pictory',link:'https://pictory.ai'},
+      {name:'Descript',link:'https://www.descript.com'},
+      {name:'Notion AI',link:'https://www.notion.so/product/ai'},
+      {name:'Grammarly',link:'https://www.grammarly.com'},
+      {name:'Hemingway',link:'https://hemingwayapp.com'},
+      {name:'Snyk AI',link:'https://snyk.io'},
+      {name:'Reface',link:'https://reface.app'},
+      {name:'RunwayML Gen-2',link:'https://runwayml.com/gen-2'},
+      {name:'Stable Audio',link:'https://stability.ai/stable-audio'},
+      {name:'Llama (Meta)',link:'https://ai.meta.com'},
+      {name:'Claude 2',link:'https://www.anthropic.com/claude'},
+      {name:'Zapier AI',link:'https://zapier.com'},
+      {name:'Make (Integromat)',link:'https://www.make.com'},
+      {name:'Socratic (Google)',link:'https://socratic.org'},
+      {name:'Elastic (Elastic AI)',link:'https://www.elastic.co'},
+      {name:'IBM Watson',link:'https://www.ibm.com/watson'},
+      {name:'Siri (Apple)',link:'https://www.apple.com/siri'},
+      {name:'Bixby (Samsung)',link:'https://www.samsung.com'},
+      {name:'YouChat',link:'https://you.com'},
+      {name:'Krita AI',link:'https://krita.org'},
+      {name:'Canva Magic Write',link:'https://www.canva.com'},
+      {name:'Figma AI',link:'https://www.figma.com'},
+      {name:'Adobe Firefly',link:'https://www.adobe.com/sensei.html'},
+      {name:'Claude Instant',link:'https://www.anthropic.com'},
+      {name:'OpenAI Codex',link:'https://openai.com'},
+      {name:'Bloom',link:'https://bloom.ai'},
+      {name:'AI21 Studio',link:'https://www.ai21.com'},
+      {name:'Perplexity Pro',link:'https://www.perplexity.ai'},
+      {name:'Mubert',link:'https://mubert.com'}
+    ];
+
+    const categories = ['Hemmesi','Text','Surat','Ses','Kod','Maglumatlar','Köp Taraplaýyn','Analiz','Döredijilik','Awtomatlaşdyryş'];
+
+    function rnd(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+    function fmt(n){if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'K'; return ''+n}
+
+    const ais = [];
+    const usedNames = new Set();
+    known.forEach(k=>{if(!usedNames.has(k.name)){usedNames.add(k.name); ais.push({id:ais.length+1, name:k.name, cat:categories[ais.length%categories.length+1] || categories[(ais.length)%categories.length], desc:'Meşhur AI guraly', link:k.link, uses:rnd(5000,2000000)})}});
+
+    const baseNames = ['Aurora','Lumen','Octave','Atlas','Nexa','Sage','Pulse','Vertex','Muse','Echo','Quantum','Nimbus','Helix','Prism','Astra','Orion','Nova','Spectra','Zephyr','Cortex'];
+    let i = ais.length;
+    while(i < TOTAL){
+      const idx = i % baseNames.length;
+      const name = baseNames[idx] + ' AI ' + (i+1);
+      if(usedNames.has(name)){i++; continue}
+      usedNames.add(name);
+      const link = 'https://www.google.com/search?q=' + encodeURIComponent(name + ' AI');
+      
+      const cat = categories[(ais.length % (categories.length-1)) + 1];
+      ais.push({id:ais.length+1, name, cat, desc:'Umumy maksatly AI guraly', link, uses:rnd(1200,800000)});
+      i = ais.length;
+    }
+
+    
+    let activeCategory = 'Hemmesi';
+    let searchQuery = '';
+
+    
+    const grid = document.getElementById('grid');
+    const categoryBar = document.getElementById('categoryBar');
+    const searchInput = document.getElementById('search');
+    const emptyEl = document.getElementById('empty');
+
+    
+    function createCard(ai, index){
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.style.animationDelay = (index * 12) + 'ms';
+      card.innerHTML = `
+        <div class="head">
+          <div class="ai-icon" aria-hidden="true">${ai.name.split(' ')[0].slice(0,3).toUpperCase()}</div>
+          <div class="ai-meta">
+            <div class="ai-title">${ai.name}</div>
+            <div class="ai-desc">${ai.desc} — <span class="tag" data-cat="${ai.cat}" title="Bu kategoriyi filtrele">${ai.cat}</span></div>
+          </div>
+          <div style="text-align:right;min-width:120px;">
+            <div style="font-size:12px;color:var(--muted)">ID: ${ai.id}</div>
+            <button class="linkbtn" data-link="${ai.link}" title="Siteyi yeni sekmede aç">Saýta giriň ↗</button>
+          </div>
+        </div>
+        <div class="ai-footer">
+          <div class="usecount">${fmt(ai.uses)} ulanyjy</div>
+          <div style="font-size:12px;color:var(--muted)">Täzelen: —</div>
+        </div>
+      `;
+
+      
+      const btn = card.querySelector('.linkbtn');
+      btn.addEventListener('click', (e)=>{
+        const url = e.currentTarget.dataset.link;
+        if(!url) return;
+        
+        window.open(url, '_blank', 'noopener');
+        
+        ai.uses += rnd(10,120);
+        card.querySelector('.usecount').textContent = fmt(ai.uses) + ' ulanyjy';
+      });
+
+      
+      const tag = card.querySelector('.tag');
+      tag.addEventListener('click', ()=>{
+        setCategory(ai.cat);
+      });
+
+      return card;
+    }
+
+    
+    function filteredList(){
+      const q = searchQuery.trim().toLowerCase();
+      return ais.filter(a=>{
+        const matchCat = (activeCategory === 'Hemmesi') || (a.cat === activeCategory);
+        const hay = (a.name + ' ' + a.desc + ' ' + a.cat).toLowerCase();
+        const matchQ = !q || hay.includes(q);
+        return matchCat && matchQ;
+      });
+    }
+
+    function renderList(list){
+      grid.innerHTML = '';
+      if(list.length === 0){ emptyEl.style.display = 'block'; return }
+      emptyEl.style.display = 'none';
+      const frag = document.createDocumentFragment();
+      list.forEach((ai,i)=>frag.appendChild(createCard(ai,i)));
+      grid.appendChild(frag);
+    }
+
+    
+    function renderCategoryBar(){
+      
+      const counts = categories.reduce((acc,c)=>{acc[c]=0;return acc},{})
+      ais.forEach(a=>{ if(counts[a.cat] !== undefined) counts[a.cat]++; else counts[a.cat]=1 })
+      
+      counts['Hemmesi'] = ais.length;
+
+      categoryBar.innerHTML = '';
+      categories.forEach(cat=>{
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn' + (cat === activeCategory ? ' active' : '');
+        btn.setAttribute('aria-pressed', cat === activeCategory ? 'true' : 'false');
+        btn.textContent = `${cat} (${counts[cat] || 0})`;
+        btn.addEventListener('click', ()=> setCategory(cat));
+        categoryBar.appendChild(btn);
+      });
+    }
+
+    function setCategory(cat){
+      activeCategory = cat;
+      renderCategoryBar();
+      renderList(filteredList());
+      
+      const msg = `${cat} kategorisi seçildi. ${filteredList().length} sonuç gösteriliyor.`;
+      announceLive(msg);
+    }
+
+    
+    searchInput.addEventListener('input', (e)=>{
+      searchQuery = e.target.value;
+      renderList(filteredList());
+    });
+
+    
+    const live = document.createElement('div');
+    live.setAttribute('aria-live','polite');
+    live.style.position='absolute'; live.style.left='-9999px';
+    document.body.appendChild(live);
+    function announceLive(text){ live.textContent = text; setTimeout(()=>{ live.textContent=''; },800); }
+
+    
+    renderCategoryBar();
+    renderList(ais);
+
+    
+    // const homeBtn = document.getElementById('homeBtn');
+    // const aboutBtn = document.getElementById('aboutBtn');
+    // const homeSection = document.getElementById('homeSection');
+    // const aboutSection = document.getElementById('aboutSection');
+    // function setActive(tab){
+    //   if(tab==='home'){homeBtn.classList.add('active');aboutBtn.classList.remove('active');homeSection.style.display='block';aboutSection.style.display='none'}
+    //   else{aboutBtn.classList.add('active');homeBtn.classList.remove('active');aboutSection.style.display='block';homeSection.style.display='none'}
+    // }
+    // homeBtn.addEventListener('click',()=>setActive('home'));
+    // aboutBtn.addEventListener('click',()=>setActive('about'));
+
+  </script>
+</body>
+</html>
